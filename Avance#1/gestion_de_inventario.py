@@ -31,7 +31,8 @@ while True:
                 print("1. Agregar vehichulo")
                 print("2. Inhabilitar vehiculo")
                 print("3. Realizar reserva")
-                print("4. Salir")
+                print("4. Mostrar vehiculos disponibles")
+                print("5. Salir")
                 menu = input("Eliga la opcion que desea: ")
 
                 if menu == "1":
@@ -67,6 +68,10 @@ while True:
                     else:
                         print("No hay espacios disponibles para reservar ese modelo.")
                 elif menu == "4":
+                    print("Vehiculos disponibles: ")
+                    for placa, detalles in inventario.items():
+                        print("Placa: " + placa + ", Marca: " + detalles['Marca'] + ", Año: " + detalles['Año'] + ", Modelo: " + detalles['Modelo'])
+                elif menu == "5":
                     print("Saliendo al menu principal.")
                     break
                 else:
