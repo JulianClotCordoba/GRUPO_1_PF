@@ -62,15 +62,15 @@ while True:
                     marca = input("Ingrese la marca del vehiculo que desea reservar: ")
                     año = input("Ingrese el año del vehiculo que desea reservar: ")
                     modelo = input("Ingrese el modelo del vehiculo que desea reservar: ")
-                    if marca in inventario and año in inventario and modelo in inventario and inventario[modelo]["Cantidad"] > 0:
-                        inventario[modelo]["Cantidad"] -= 1
+                    if marca in inventario[placa]["Marca"] and año in inventario[placa]["Año"] and modelo in inventario[placa]["Modelo"] and inventario[placa]["Cantidad"] > 0:
+                        inventario[placa]["Cantidad"] -= 1
                         print("Reserva realizada con exito.")
                     else:
                         print("No hay espacios disponibles para reservar ese modelo.")
                 elif menu == "4":
                     print("Vehiculos disponibles: ")
                     for placa, detalles in inventario.items():
-                        print("Placa: " + placa + ", Marca: " + detalles['Marca'] + ", Año: " + detalles['Año'] + ", Modelo: " + detalles['Modelo'])
+                        print("Placa: " + placa + ", Marca: " + detalles['Marca'] + ", Año: " + detalles['Año'] + ", Modelo: " + detalles['Modelo'] + "Cantidad: " + detalles['Cantidad'])
                 elif menu == "5":
                     print("Saliendo al menu principal.")
                     break
