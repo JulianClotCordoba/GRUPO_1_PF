@@ -1,84 +1,153 @@
-# Grupo #1
-# Programacion basica
-# Universidad Fidelitas
-
 usuarios = []
 contrasenas = []
 inventario = {}
 
-usuario_registro = input("Ingrese su usuario: ")
-contrasena_registro = input("Ingrese su contraseña: ")
-
-usuarios.append(usuario_registro)
-contrasenas.append(contrasena_registro)
-
 print("*******************************************************")
 
 while True:
-    opcion = input(" ¿Desea ingresar al sistema? (Sí/No): ").lower()
-    if opcion != "si":
+    print("Menú de ingreso:")
+    print("1. Usuario registrado")
+    print("2. Nuevo usuario")
+    print("3. Usuario invitado")
+    print("4. Salir")
+    opcion_ingreso = input("Elija una opción: ")
+
+    if opcion_ingreso == "1":
+        for intento in range(3):
+            usuario_ingreso = input("Ingrese su usuario: ")
+            contrasena_ingreso = input("Ingrese su contraseña: ")
+
+            if usuario_ingreso in usuarios and contrasena_ingreso == contrasenas[usuarios.index(usuario_ingreso)]:
+                print("Inicio de sesión exitoso. Bienvenido")
+
+                while True:
+                    print("Menú de usuario registrado:")
+                    print("1. Agregar vehículo")
+                    print("2. Inhabilitar vehículo")
+                    print("3. Realizar reserva")
+                    print("4. Mostrar vehículos disponibles")
+                    print("5. Salir")
+                    menu = input("Elige la opción que deseas: ")
+
+                    if menu == "1":
+                        placa = input("Ingrese la placa del vehículo: ")
+                        if placa in inventario:
+                            print("Ya existe un vehículo con esa placa.")
+                        else:
+                            marca = input("Ingrese la marca del vehículo: ")
+                            año = input("Ingrese el año del vehículo: ")
+                            modelo = input("Ingrese el modelo del vehículo: ")
+                            cilindraje = input("Ingrese el cilindraje del vehículo: ")
+                            precio_alquiler = float(input("Ingrese el precio de alquiler por día del vehículo: "))
+                            precio_vehiculo = float(input("Ingrese el precio del vehículo: "))
+                            cantidad = int(input("Ingrese la cantidad de este vehículo: "))
+                            inventario[placa] = {"Marca": marca, "Año": año, "Modelo": modelo, "Cilindraje": cilindraje,
+                                                "Precio Alquiler": precio_alquiler, "Precio Vehículo": precio_vehiculo,
+                                                "Cantidad": cantidad}
+                            print("Vehículo agregado exitosamente.")
+                    elif menu == "2":
+                        placa = input("Ingrese la placa del vehículo: ")
+                        if placa not in inventario:
+                            print("No existe un vehículo con esa placa.")
+                        else:
+                            del inventario[placa]
+                            print("Vehículo inhabilitado exitosamente.")
+                    elif menu == "3":
+                        marca = input("Ingrese la marca del vehículo que desea reservar: ")
+                        año = input("Ingrese el año del vehículo que desea reservar: ")
+                        modelo = input("Ingrese el modelo del vehículo que desea reservar: ")
+
+                        for placa, detalles in inventario.items():
+                            if detalles["Marca"] == marca and detalles["Año"] == año and detalles["Modelo"] == modelo and detalles["Cantidad"] > 0:
+                                detalles["Cantidad"] -= 1
+                                print("Reserva realizada con éxito.")
+                                break
+                        else:
+                            print("No hay espacios disponibles para reservar ese modelo.")
+                    elif menu == "4":
+                        if inventario:
+                            print("Vehículos disponibles: ")
+                            for placa, detalles in inventario.items():
+                                print("Placa:", placa)
+                                print("Marca:", detalles['Marca'])
+                                print("Año:", detalles['Año'])
+                                print("Modelo:", detalles['Modelo'])
+                                print("------------------------")
+                        else:
+                            print("No hay vehículos disponibles.")
+                    elif menu == "5":
+                        print("Saliendo al menú de ingreso.")
+                        break
+                    else:
+                        print("Error, por favor vuelve a intentar.")
+                break
+            else:
+                print("Error en el usuario o contraseña. Intentos restantes:", 2 - intento)
+                if intento == 2:
+                    print("Se agotaron los intentos. Volviendo al menú principal.")
+                    break
+
+    elif opcion_ingreso == "2":
+        nuevo_usuario = input("Ingrese su nuevo usuario: ")
+        nueva_contrasena = input("Ingrese su nueva contraseña: ")
+        usuarios.append(nuevo_usuario)
+        contrasenas.append(nueva_contrasena)
+        inventario[nuevo_usuario] = {}
+        print("Usuario registrado exitosamente.")
+
+    elif opcion_ingreso == "3":
+        print("Bienvenido, usted ingresó en modo invitado.")
+        while True:
+            print("Menú de usuario invitado:")
+            print("1. Agregar vehículo")
+            print("2. Inhabilitar vehículo")
+            print("3. Mostrar vehículos disponibles")
+            print("4. Salir")
+            opcion_invitado = input("Elija una opción: ")
+
+            if opcion_invitado == "1":
+                placa = input("Ingrese la placa del vehículo: ")
+                if placa in inventario:
+                    print("Ya existe un vehículo con esa placa.")
+                else:
+                    marca = input("Ingrese la marca del vehículo: ")
+                    año = input("Ingrese el año del vehículo: ")
+                    modelo = input("Ingrese el modelo del vehículo: ")
+                    cilindraje = input("Ingrese el cilindraje del vehículo: ")
+                    precio_alquiler = float(input("Ingrese el precio de alquiler por día del vehículo: "))
+                    precio_vehiculo = float(input("Ingrese el precio del vehículo: "))
+                    cantidad = int(input("Ingrese la cantidad de este vehículo: "))
+                    inventario[placa] = {"Marca": marca, "Año": año, "Modelo": modelo, "Cilindraje": cilindraje,
+                                        "Precio Alquiler": precio_alquiler, "Precio Vehículo": precio_vehiculo,
+                                        "Cantidad": cantidad}
+                    print("Vehículo agregado exitosamente.")
+            elif opcion_invitado == "2":
+                placa = input("Ingrese la placa del vehículo: ")
+                if placa not in inventario:
+                    print("No existe un vehículo con esa placa.")
+                else:
+                    del inventario[placa]
+                    print("Vehículo inhabilitado exitosamente.")
+            elif opcion_invitado == "3":
+                if inventario:
+                    print("Vehículos disponibles:")
+                    for placa, detalles in inventario.items():
+                        print("Placa:", placa)
+                        print("Marca:", detalles['Marca'])
+                        print("Año:", detalles['Año'])
+                        print("Modelo:", detalles['Modelo'])
+                        print("------------------------")
+                else:
+                    print("No hay vehículos disponibles.")
+            elif opcion_invitado == "4":
+                print("Saliendo al menú de ingreso.")
+                break
+            else:
+                print("Error, por favor vuelve a intentar.")
+
+    elif opcion_ingreso == "4":
         print("Saliendo del programa.")
         break
 
-    for intento in range(3):
-        usuario_ingreso = input("Ingrese su usuario: ")
-        contrasena_ingreso = input("Ingrese su contraseña: ")
-
-        if usuario_ingreso in usuarios and contrasena_ingreso == contrasenas[usuarios.index(usuario_ingreso)]:
-            print("Inicio de sesión exitoso. Bienvenido")
-
-            while True:
-                print("1. Agregar vehichulo")
-                print("2. Inhabilitar vehiculo")
-                print("3. Realizar reserva")
-                print("4. Mostrar vehiculos disponibles")
-                print("5. Salir")
-                menu = input("Eliga la opcion que desea: ")
-
-                if menu == "1":
-                    placa = input("Ingrese la placa del vehiculo: ")
-                    if placa in inventario:
-                        print("Ya existe un vehiculo con esa placa.")
-                    else:
-                        marca = input("Ingrese la marca del vehículo: ")
-                        año = input("Ingrese el año del vehículo: ")
-                        modelo = input("Ingrese el modelo del vehículo: ")
-                        cilindraje = input("Ingrese el cilindraje del vehículo: ")
-                        precio_alquiler = float(input("Ingrese el precio de alquiler por día del vehículo: "))
-                        precio_vehiculo = float(input("Ingrese el precio del vehículo: "))
-                        cantidad = int(input("Ingrese la cantidad de este vehículo: "))
-                        inventario[placa] = {"Marca": marca, "Año": año, "Modelo": modelo, "Cilindraje": cilindraje,
-                                             "Precio Alquiler": precio_alquiler, "Precio Vehículo": precio_vehiculo,
-                                             "Cantidad": cantidad}
-                        print("Vehiculo agregado exitosamente.")
-                elif menu == "2":
-                    placa = input("Ingrese la placa del vehiculo: ")
-                    if placa not in inventario:
-                        print("No existe un vehiculo con esa placa.")
-                    else:
-                        del inventario[placa]
-                        print("Vehiculo inhabilitado exitosamente.")
-                elif menu == "3":
-                    marca = input("Ingrese la marca del vehiculo que desea reservar: ")
-                    año = input("Ingrese el año del vehiculo que desea reservar: ")
-                    modelo = input("Ingrese el modelo del vehiculo que desea reservar: ")
-                    if marca in inventario[placa]["Marca"] and año in inventario[placa]["Año"] and modelo in inventario[placa]["Modelo"] and inventario[placa]["Cantidad"] > 0:
-                        inventario[placa]["Cantidad"] -= 1
-                        print("Reserva realizada con exito.")
-                    else:
-                        print("No hay espacios disponibles para reservar ese modelo.")
-                elif menu == "4":
-                    print("Vehiculos disponibles: ")
-                    for placa, detalles in inventario.items():
-                        print("Placa: " + placa + ", Marca: " + detalles['Marca'] + ", Año: " + detalles['Año'] + ", Modelo: " + detalles['Modelo'] + "Cantidad: " + detalles['Cantidad'])
-                elif menu == "5":
-                    print("Saliendo al menu principal.")
-                    break
-                else:
-                    print("Error, porfavor vuelva a intentar.")
-            break
-        else:
-            print("Error en el usuario o contraseña. Intentos restantes:", 2 - intento)
-            if intento == 2:
-                print("Se agotaron los intentos. Volviendo al menú principal.")
-                break
+    else:
+        print("Opción no válida. Por favor, elija una opción")
