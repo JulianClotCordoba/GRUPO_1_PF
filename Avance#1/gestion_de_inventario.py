@@ -1,5 +1,6 @@
 usuarios = []
 contrasenas = []
+cedula = []
 inventario = {}
 sedes = {"San Jose": "24 horas, los 7 dias de la semana", "Alajuela": "24 horas, los 7 dias de la semana", "Guanacaste": "Abren a las 4 am, cierran a las 11 pm.", "Limon": "Abren a las 6 am, cierran a las 10pm", "Puntarenas": "Abren a las 5 am, cierran a las 10 pm", "Perez Zeledon": "Abren a las 7 am, cierran a las 10 pm"}
 
@@ -107,8 +108,10 @@ while True:
         elif opcion_ingreso == "2":
             nuevo_usuario = input("Ingrese su nuevo usuario: ")
             nueva_contrasena = input("Ingrese su nueva contraseña: ")
+            nueva_cedula = input("Ingrese su cedula: ")
             usuarios.append(nuevo_usuario)
             contrasenas.append(nueva_contrasena)
+            cedula.append(nueva_cedula)
             inventario[nuevo_usuario] = {}
             print("Usuario registrado exitosamente.")
 
