@@ -1,5 +1,3 @@
-import datetime
-
 usuarios = []
 contrasenas = []
 inventario = {}
