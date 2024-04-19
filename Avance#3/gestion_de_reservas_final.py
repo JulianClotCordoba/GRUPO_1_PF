@@ -1,3 +1,7 @@
+# Universidad Fidelitas
+# Equipo #1
+# Programacion basica
+
 usuarios = []
 contrasenas = []
 cedula = []
@@ -82,24 +86,27 @@ while True:
                             año = input("Ingrese el año del vehículo que desea reservar: ")
                             modelo = input("Ingrese el modelo del vehículo que desea reservar: ")
 
+                            vehiculo_encontrado = False
                             for placa, detalles in inventario.items():
-                                if detalles["Marca"] == marca and detalles["Año"] == año and detalles["Modelo"] == modelo and detalles["Cantidad"] > 0:
+                                if detalles.get("Marca") == marca and detalles.get("Año") == año and detalles.get("Modelo") == modelo and detalles.get("Cantidad", 0) > 0:
                                     detalles["Cantidad"] -= 1
                                     print("Reserva realizada con éxito.")
+                                    vehiculo_encontrado = True
                                     break
-                            else:
+                            if not vehiculo_encontrado:
                                 print("No hay espacios disponibles para reservar ese modelo.")
                         elif menu == "4":
                             if inventario:
                                 print("Vehículos disponibles: ")
                                 for placa, detalles in inventario.items():
-                                    print("Placa:", placa)
-                                    print("Marca:", detalles["Marca"])
-                                    print("Año:", detalles["Año"])
-                                    print("Modelo:", detalles["Modelo"])
-                                    print("------------------------")
+                                    if detalles:
+                                        print("Placa:", placa)
+                                        print("Marca:", detalles['Marca'])
+                                        print("Año:", detalles['Año'])
+                                        print("Modelo:", detalles['Modelo'])
+                                        print("------------------------")
                             else:
-                                print("No hay vehículos disponibles.")
+                                print("No hay vehiculos disponibles.")
                         elif menu == "5":
                             print("Saliendo al menú de ingreso.")
                             break
@@ -160,9 +167,9 @@ while True:
                         print("Vehículos disponibles:")
                         for placa, detalles in inventario.items():
                             print("Placa:", placa)
-                            print("Marca:", detalles["Marca"])
-                            print("Año:", detalles["Año"])
-                            print("Modelo:", detalles["Modelo"])
+                            print("Marca:", detalles['Marca'])
+                            print("Año:", detalles['Año'])
+                            print("Modelo:", detalles['Modelo'])
                             print("------------------------")
                     else:
                         print("No hay vehículos disponibles.")
